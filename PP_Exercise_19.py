@@ -8,11 +8,13 @@ from bs4 import BeautifulSoup
 # (Hint: The post here describes in detail how to use the BeautifulSoup and requests libraries through the solution of the exercise posted here.)
 #
 # This will just print the full text of the article to the screen. It will not make it easy to read, so next exercise we will learn how to write this text to a .txt file.
+def main():
+    url = "http://www.vanityfair.com/society/2014/06/monica-lewinsky-humiliation-culture"
+    page = requests.get(url)
+    pageHTML = page.text
+    soup = BeautifulSoup(pageHTML, "lxml")
+    pTags = soup.find('div',class_="article-main").find_all("p")
+    for p_tag in pTags:
+        print(p_tag.text)
 
-url = "http://www.vanityfair.com/society/2014/06/monica-lewinsky-humiliation-culture"
-page = requests.get(url)
-pageHTML = page.text
-soup = BeautifulSoup(pageHTML, "lxml")
-pTags = soup.find('div',class_="article-main").find_all("p")
-for p_tag in pTags:
-    print(p_tag.text)
+main()
